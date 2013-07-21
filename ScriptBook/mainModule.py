@@ -37,7 +37,6 @@ class CreateScriptForm(QtGui.QMainWindow):
         Form, Base = uic.loadUiType("createScriptForm.ui")
         self.ui = Form()
         self.ui.setupUi(self)
-        self.show()
 #        self.windowModality()
         
         
@@ -56,7 +55,7 @@ class MainForm(QtGui.QMainWindow):
     def on_clickedpBAddScript(self):
         windowAddScript = CreateScriptForm()
         windowAddScript.create()
-        #windowAddScript.show()
+        windowAddScript.show()
         
         
         
