@@ -37,7 +37,7 @@ class CreateScriptForm(QtGui.QMainWindow):
         Form, Base = uic.loadUiType("createScriptForm.ui")
         self.ui = Form()
         self.ui.setupUi(self)
-#        self.windowModality()
+        self.setWindowModality(QtCore.Qt.WindowModal)
         
         
 
@@ -50,13 +50,16 @@ class MainForm(QtGui.QMainWindow):
         self.setWindowIcon(QtGui.QIcon('res/bpc.svg'))
         self.connect(self.ui.actionNew, QtCore.SIGNAL("triggered()"), self.on_triggeredNew)
         self.connect(self.ui.actionExit, QtCore.SIGNAL("triggered()"), self.on_triggeredExit)
-        self.connect(self.ui.pBAddScript, QtCore.SIGNAL("clicked()"), self.on_clickedpBAddScript)
-        
-    def on_clickedpBAddScript(self):
+        #self.connect(self.ui.pBAddScript, QtCore.SIGNAL("clicked()"), self.on_clickedpBAddScript(CreateScriptForm))
+        self.ui.pBAddScript.clicked.connect(lambda: self.on_clickedpBAddScript(CreateScriptForm))
+    def on_clickedpBAddScript(self, widget):
+        """
         windowAddScript = CreateScriptForm()
         windowAddScript.create()
         windowAddScript.show()
-        
+        """
+        windowAddScript = widget(self)
+        windowAddScript.show()
         
         
     def on_triggeredNew(self):
