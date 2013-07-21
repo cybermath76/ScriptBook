@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-Created on 21 ���� 2013 �.
+Created on 20 ���� 2013 �.
 
 @author: Sasha
 '''
