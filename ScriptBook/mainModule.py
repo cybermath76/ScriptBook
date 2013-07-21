@@ -4,32 +4,22 @@ Created on 20 ���� 2013 �.
 
 @author: Sasha
 '''
-from PyQt4 import QtGui, QtCore, uic
+from PyQt4 import QtGui, QtCore, Qsci, uic
+from PyQt4.Qsci import QsciScintilla, QsciScintillaBase, QsciLexerPython
 import sys
 import DialogModule
 import ConnectionModule
 
-"""
-def on_triggered():
-    sd = DialogModule.ShowDialog()
-    sd.header = 'Create dataBase' 
-    sd.name   = 'Inpute DB'   
-    sd.show()
-"""
 
-    
-    
 class CategoryWindow(QtGui.QWidget):
     def __init__(self, parent = None):
         QtGui.QWidget.__init__(self, parent)
         Form, Base = uic.loadUiType("Category.ui")
         self.ui = Form()
         self.ui.setupUi(self)
- #       self.windowModality()
+
  
- 
- 
- 
+  
  
 class CreateScriptForm(QtGui.QMainWindow):
     def __init__(self, parent = None):
@@ -38,7 +28,11 @@ class CreateScriptForm(QtGui.QMainWindow):
         self.ui = Form()
         self.ui.setupUi(self)
         self.setWindowModality(QtCore.Qt.WindowModal)
+        self.connect(self.ui.pBCancel, QtCore.SIGNAL("clicked()"), self.on_close)
         
+        
+    def on_close(self):
+        self.close()
         
 
 class MainForm(QtGui.QMainWindow):
@@ -52,32 +46,18 @@ class MainForm(QtGui.QMainWindow):
         self.connect(self.ui.actionExit, QtCore.SIGNAL("triggered()"), self.on_triggeredExit)
         #self.connect(self.ui.pBAddScript, QtCore.SIGNAL("clicked()"), self.on_clickedpBAddScript(CreateScriptForm))
         self.ui.pBAddScript.clicked.connect(lambda: self.on_clickedpBAddScript(CreateScriptForm))
+        
+        lexer = QsciLexerPython()
+        #self.ui.tEScriptEditor.lexer = self.ui.tEScriptEditor.QsciLexerPython()
+        self.ui.tEScriptEditor.setLexer(lexer)
+
     def on_clickedpBAddScript(self, widget):
-        """
-        windowAddScript = CreateScriptForm()
-        windowAddScript.create()
-        windowAddScript.show()
-        """
         windowAddScript = widget(self)
         windowAddScript.show()
         
         
     def on_triggeredNew(self):
-        """
-        iD = DialogModule.InputDialog()
-        iD.header = 'Create dataBase'
-        iD.name   = 'Inpute DB'
-        iD.Show()
-        id.
-        #resultDB, resultOK = id.getText(self, self.header, self.name)
-        #result = iD.Show()
-       # resultDB = iD.text
-        resultOK = iD.Ok
-        if resultOK:
-            ConnectionModule.ConnectToDB(resultDB)
-        else:
-            print("Error create DB")
-        """
+
         global sqlWorker_sW 
         
         header = 'Create dataBase'
